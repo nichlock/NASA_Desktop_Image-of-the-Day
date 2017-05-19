@@ -1,2 +1,2 @@
-cd "[YOUR FILE HERE]"
+cd "[LOCATION OF PHOTO]"
 "Refresh Image.jar"
