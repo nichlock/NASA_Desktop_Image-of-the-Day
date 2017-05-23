@@ -1,3 +1,4 @@
+//This Java file gets the location of the NASA image of the day and downloads it to a new file either labeled img.jpg or img2.jpg
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
@@ -44,7 +45,7 @@ public class Main {
             
             
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error");
+            JOptionPane.showMessageDialog(null, "Error while getting RSS.");
             return null;
         }
         
@@ -73,7 +74,7 @@ public class Main {
             ImageIO.write(imageS, "jpg", new File(fileName));
             
         } catch (Exception ex) { // If the previous code failed for some reason, then open a windows that states the failure
-            JOptionPane.showMessageDialog(null, "Error while writing");
+            JOptionPane.showMessageDialog(null, "Error while writing to the image.");
             ex.printStackTrace();
            
         }
