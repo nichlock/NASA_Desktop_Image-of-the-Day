@@ -44,8 +44,8 @@ public class Main {
                     return imagelink;
             
             
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error while getting RSS.");
+        } catch (Exception ex) { //If the RSS can't be accessed then open a window to warn the user
+            JOptionPane.showMessageDialog(null, "Error while getting RSS.\nPerhaps try checking your internet connection?");
             return null;
         }
         
