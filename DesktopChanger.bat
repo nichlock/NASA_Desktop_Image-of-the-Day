@@ -1,2 +1,2 @@
-cd "[LOCATION OF PHOTO]"
+cd "[FOLDER LOCATION]"
 "Refresh Image.jar"
