@@ -3,17 +3,16 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 public class Main {
 
@@ -56,27 +55,16 @@ public class Main {
         System.out.println(imageURL.substring(0,4) + "s" + imageURL.substring(4));
         try { //try the following code:
         	
-        	// If img.jpg exists, delete it and use the name img2.jpg, and vice versa.
-        	// This seemed to help with some issues with windows recognizing the new images
-            File f = new File("img.jpg");
-            String fileName = "img.jpg";
-            System.out.println(f.exists() && !f.isDirectory());
-            if(f.exists() && !f.isDirectory()) 
-                fileName = "img2.jpg";
-            f = null;
-            Files.deleteIfExists(Paths.get("img2.jpg"));
-            Files.deleteIfExists(Paths.get("img.jpg"));
-            
-            // Get the image from the URL, and set it to 
+            // Get the image from the URL, and set it to the image files
             URL url = new URL(imageURL.substring(0,4) + "s" + imageURL.substring(4));
             BufferedImage imageS = null;
             imageS = ImageIO.read(url);
-            ImageIO.write(imageS, "jpg", new File(fileName));
+            ImageIO.write(imageS, "jpg", new File("img.jpg")); //writes to two image files, this allows for Windows 7 compatibility
+            ImageIO.write(imageS, "jpg", new File("img2.jpg"));
             
         } catch (Exception ex) { // If the previous code failed for some reason, then open a windows that states the failure
             JOptionPane.showMessageDialog(null, "Error while writing to the image.");
             ex.printStackTrace();
-           
         }
     }
 
