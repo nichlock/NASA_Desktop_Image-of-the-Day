@@ -33,7 +33,7 @@ public class refresh_image {
 	 */
 	public static void main(String args[]) {
 		// Set the image to the one pulled from NASA's RSS feed
-		if (args.length == 1)
+		if (args.length > 0)
 			saveImage(parseXml(), args[0]); // Use given directory
 		else
 			saveImage(parseXml(), ""); // Use local directory
@@ -106,13 +106,17 @@ public class refresh_image {
 			// Using two image files for Windows 7 compatibility
 			ImageIO.write(iotd, image_format, new File(directory + "img." + image_format));
 			ImageIO.write(iotd, image_format, new File(directory + "img2." + image_format));
-
-		} catch (FileNotFoundException e) { // Could not write to file
+			// Could not write to file.
+			// Usually this gets 'skipped' and NullPointerException is called instead
+		} catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(null, "Couldn't write to the image location: " + directory + "img.*");
+			e.printStackTrace();
+		} catch (NullPointerException e) { // This will also get thrown if the file was invalid
 			JOptionPane.showMessageDialog(null,
-					"Error while writing to the image.\nCould not write to image at location: " + directory + "img.*");
+					"Got a NullPointerException; please check the file path:\n" + directory + "img.*");
 			e.printStackTrace();
 		} catch (Exception e) { // If getting the image failed, show why
-			JOptionPane.showMessageDialog(null, "Error while writing to the image.");
+			JOptionPane.showMessageDialog(null, "Error while writing to the image:\n" + e.toString());
 			e.printStackTrace();
 		}
 	}
