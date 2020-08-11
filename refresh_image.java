@@ -1,4 +1,3 @@
-
 /**
  * This Java file gets the location of the NASA image of the day and downloads it to a new file either labeled img.jpg or img2.jpg
  */
