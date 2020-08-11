@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import javax.imageio.ImageIO;
+import java.awt.Color;
 
 // Reading XML documents
 import org.w3c.dom.Document;
@@ -20,7 +21,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 // Printing  errors without a console
 import javax.swing.JOptionPane;
 
-public class refresh_image {
+public class iotd_refresh {
 
 	static String nasa_iotd_rss = "https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss";
 
@@ -81,7 +82,7 @@ public class refresh_image {
 	}
 
 	/**
-	 * This saves the image to the specified location
+	 * This saves the image to the specified location *
 	 * 
 	 * @param imageURL  The URL to the image
 	 * @param directory Where to save images
@@ -97,14 +98,19 @@ public class refresh_image {
 
 			// Print some troubleshooting info
 			System.out.println("Image URL: " + url.toString());
-			System.out.println("Saving image from URL to " + directory + "img." + image_format);
-			// Get the image
+			System.out.println("Saving image from URL to " + directory + "img.jpg");
+			// Get the image in whatever format it was received in
 			BufferedImage iotd = null;
 			iotd = ImageIO.read(url);
+			// If the format is not a jpeg, the colors need fixing
+			if (image_format != "jpg" && image_format != "jpeg") {
+				// Recreates buffered image with a new color format
+				iotd = convertToJpg(iotd);
+			}
 			// Write to the two image files.
 			// Using two image files for Windows 7 compatibility
-			ImageIO.write(iotd, image_format, new File(directory + "img." + image_format));
-			ImageIO.write(iotd, image_format, new File(directory + "img2." + image_format));
+			ImageIO.write(iotd, "jpg", new File(directory + "img.jpg"));
+			ImageIO.write(iotd, "jpg", new File(directory + "img2.jpg"));
 			// Could not write to file.
 			// Usually this gets 'skipped' and NullPointerException is called instead
 		} catch (FileNotFoundException e) {
@@ -118,6 +124,17 @@ public class refresh_image {
 			JOptionPane.showMessageDialog(null, "Error while writing to the image:\n" + e.toString());
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Converts the given image to a jpeg color format.
+	 */
+	public static BufferedImage convertToJpg(BufferedImage orig) {
+		// Create a blank BufferedImage with the correct colors
+		BufferedImage newImage = new BufferedImage(orig.getWidth(), orig.getHeight(), BufferedImage.TYPE_INT_RGB);
+		newImage.createGraphics().drawImage(orig, 0, 0, Color.WHITE, null); // Fill the new image
+		return newImage;
+
 	}
 
 }
