@@ -1,7 +1,7 @@
 # NASA Image of the Day, on your Desktop!
 This is a short Java program that, when run, writes [NASA's image of the day](https://www.nasa.gov/multimedia/imagegallery/iotd.html) to two image files. You can set those images to a slideshow that changes once a day. For more info, see my [instructable on this](https://www.instructables.com/id/NASA-Image-of-the-Day-As-Your-Desktop/).
 
-See [Releases](releases/) page for the working builds!
+See [Releases](../../releases/) page for the working builds!
 
 # Using it
 
